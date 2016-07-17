@@ -13,7 +13,7 @@ def circularDimensionSVG( center_x, center_y, radius, radialLine_x=None, radialL
     XML_body = [ ' <circle cx ="%f" cy ="%f" r="%f" stroke="none" fill="%s" /> ' % (center_x, center_y, centerPointDia*0.5, lineColor) ]
     #XML_body.append( '<circle cx="%f" cy="%f" r="%f" stroke="rgb(0,0,255)" stroke-width="%1.2f" fill="none" />' % (center_x, center_y, radius, strokeWidth) )
     if radialLine_x <> None and radialLine_y <> None:
-        theta = numpy.arctan2( radialLine_y - center_y, radialLine_x - center_x )
+        theta = math.atan2( radialLine_y - center_y, radialLine_x - center_x )
         A = numpy.array([ center_x + radius*numpy.cos(theta) , center_y + radius*numpy.sin(theta) ])
         B = numpy.array([ center_x - radius*numpy.cos(theta) , center_y - radius*numpy.sin(theta) ])
         XML_body.append( svgLine(radialLine_x, radialLine_y, B[0], B[1], lineColor, strokeWidth) )

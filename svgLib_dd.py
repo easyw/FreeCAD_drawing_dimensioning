@@ -6,6 +6,8 @@ from circleLib import fitCircle_to_path, findCircularArcCentrePoint, pointsAlong
 from numpy import arctan2, pi, linspace, dot, sin, cos, array, cross
 from numpy.linalg import norm
 
+from math import atan2
+
 try:
     import FreeCAD
     def warningPrintFun( warningMsg ):
@@ -335,7 +337,7 @@ class SvgPathArc:
         if not sweep: # If sweep-flag is '1', then the arc will be drawn in a "positive-angle" direction
             dtheta = -dtheta
         self.dtheta = dtheta
-        self.theta_start =  arctan2( y1 - c_y_Y, x1 - c_x_Y)
+        self.theta_start =  atan2( y1 - c_y_Y, x1 - c_x_Y)
         self.T_element, self.c_element = element.Transforms()
         #print(self.valueAt(0), element.applyTransforms(_pen_x, _pen_y))
         #print(self.valueAt(1), element.applyTransforms(_end_x, _end_y))
@@ -455,7 +457,7 @@ class SvgPathArc:
 
 
 def arctanDegrees( dY, dX ):
-    theta = arctan2( dY, dX ) / pi * 180
+    theta = atan2( dY, dX ) / pi * 180
     return theta if theta >= 0 else theta + 360          
 
 def dxfwrite_arc_parms( X, Y, x_c=None, y_c=None, n=12 ):
@@ -524,8 +526,8 @@ class SvgPathBezierCurve:
         x1, y1 = self.P[0]
         x2, y2 = self.P[-1]
         x_c, y_c = self.c_x, self.c_y
-        startangle = arctan2( y1 - y_c, x1 - x_c) / pi * 180
-        endangle = arctan2( y2 - y_c, x2 - x_c) / pi * 180
+        startangle = atan2( y1 - y_c, x1 - x_c) / pi * 180
+        endangle = atan2( y2 - y_c, x2 - x_c) / pi * 180
         return r, (x_c, y_c), startangle, endangle
 
 

@@ -8,6 +8,9 @@ Circular fitting ref:    http://wiki.scipy.org/Cookbook/Least_Squares_Circle
 import numpy
 from numpy import array, mean, linalg, sqrt, pi, linspace, cos, sin, arctan2, cross, nan, isnan, arccos
 
+import math
+from math import atan2
+
 def bezier_cubic_point( p0, p1, p2, p3, t):
     ''' source wikipedia'''
     return p0*(1-t)**3 + 3*p1*t*(1-t)**2 + 3*p2*t**2*(1-t) + t**3 * p3
@@ -125,7 +128,7 @@ def findCircularArcCentrePoint_new(r, x_1, y_1, x_2, y_2, largeArc, sweep, debug
     if debug: print('sweep     : %s' % sweep ) 
     if debug: print('gamma %3.1f' % (gamma/pi*180))
     
-    angle_1_2 = arctan2( y_2 - y_1, x_2 - x_1) #range ``[-pi, pi]``
+    angle_1_2 = atan2( y_2 - y_1, x_2 - x_1) #range ``[-pi, pi]``
     # given the two possible center points of
     #c_x = x_1 + r*cos(angle_1_2 + gamma)
     #c_y = y_1 + r*sin(angle_1_2 + gamma)
@@ -166,6 +169,8 @@ def findCircularArcCentrePoint_old(r, x_1, y_1, x_2, y_2, largeArc, sweep, debug
     using geometry to solve for centre point...
     '''
     from numpy import arccos, arctan2, sin, cos, pi
+    from math import atan2
+    
     # the law of cosines states c^2 = a^2 + b^2 - 2ab*cos(gamma)
     c,a = r,r
     b = ( ( x_2-x_1 )**2 + ( y_2-y_1 )**2 ) ** 0.5
@@ -183,7 +188,7 @@ def findCircularArcCentrePoint_old(r, x_1, y_1, x_2, y_2, largeArc, sweep, debug
     if debug: print('x2,y2 : %1.2f, %1.2f' % (x_2, y_2))
     if debug: print('gamma %3.1f' % (gamma/pi*180))
     
-    angle_1_2 = arctan2( y_2 - y_1, x_2 - x_1) #range ``[-pi, pi]``
+    angle_1_2 = atan2( y_2 - y_1, x_2 - x_1) #range ``[-pi, pi]``
     # given the two possible center points of
     c_x = x_1 + r*cos(angle_1_2 + gamma)
     c_y = y_1 + r*sin(angle_1_2 + gamma)
@@ -192,8 +197,8 @@ def findCircularArcCentrePoint_old(r, x_1, y_1, x_2, y_2, largeArc, sweep, debug
     c_y_alt = y_1 + r*sin(angle_1_2 - gamma)
     if debug: print('      or c_x,c_y at %1.2f, %1.2f' % (c_x_alt, c_y_alt))
 
-    angle_1 = arctan2( y_1 - c_y, x_1 - c_x)
-    angle_2 = arctan2( y_2 - c_y, x_2 - c_x)
+    angle_1 = atan2( y_1 - c_y, x_1 - c_x)
+    angle_2 = atan2( y_2 - c_y, x_2 - c_x)
     if debug: print('  angle_1 %3.1f deg' % (angle_1 / pi * 180))
     if debug: print('  angle_2 %3.1f deg' % (angle_2 / pi * 180))
     if not largeArc:
@@ -233,7 +238,7 @@ def pointsAlongCircularArc_new(r, x_1, y_1, x_2, y_2, largeArc, sweep, noPoints,
         dtheta = 2*pi - dtheta
     if not sweep: # If sweep-flag is '1', then the arc will be drawn in a "positive-angle" direction
         dtheta = -dtheta
-    theta_start =  arctan2( y_1 - c_y, x_1 - c_x)
+    theta_start =  atan2( y_1 - c_y, x_1 - c_x)
     points = []
     for i in range(1,noPoints+1):
         a = theta_start + i*dtheta/noPoints
@@ -245,8 +250,8 @@ def pointsAlongCircularArc_new(r, x_1, y_1, x_2, y_2, largeArc, sweep, noPoints,
 
 def pointsAlongCircularArc_old(r, x_1, y_1, x_2, y_2, largeArc, sweep, noPoints, debug=False ):
     c_x, c_y = findCircularArcCentrePoint(r, x_1, y_1, x_2, y_2, largeArc, sweep, debug)
-    angle_1 = arctan2( y_1 - c_y, x_1 - c_x)
-    angle_2 = arctan2( y_2 - c_y, x_2 - c_x)
+    angle_1 = atan2( y_1 - c_y, x_1 - c_x)
+    angle_2 = atan2( y_2 - c_y, x_2 - c_x)
     if not sweep: # arc sweeps through increasing angles # arc drawing CCW, 
         if angle_2 > angle_1:
             angle_2 = angle_2 - 2*pi

@@ -137,7 +137,7 @@ def linearDimensionSVG_parallels( line1, line2, x_baseline, y_baseline, x_text=N
             s =  1
         XML.append( arrowHeadSVG( p_arrow1,  directionVector(p_center, p_arrow1)*s, arrowL1, arrowL2, arrowW, lineColor ) )
         XML.append( arrowHeadSVG( p_arrow2,  directionVector(p_center, p_arrow2)*s, arrowL1, arrowL2, arrowW, lineColor ) )
-    textRotation = numpy.arctan2( d[1], d[0]) / numpy.pi * 180 + 90
+    textRotation = math.atan2( d[1], d[0]) / numpy.pi * 180 + 90
     text = dimensionText(dist*scale,textFormat_linear,comma=comma_decimal_place)
     XML.append( textPlacement_common_procedure( p_arrow1, p_arrow2, text, x_text, y_text, textRotation, textRenderer, autoPlaceText, autoPlaceOffset) )
     return '<g> %s </g> ''' % '\n'.join(XML)

@@ -11,7 +11,7 @@ def radiusDimensionSVG( center_x, center_y, radius, radialLine_x=None, radialLin
                         textRenderer=defaultTextRenderer):
     XML_body = [ ' <circle cx ="%f" cy ="%f" r="%f" stroke="none" fill="%s" /> ' % (center_x, center_y, centerPointDia*0.5, lineColor) ]
     if radialLine_x <> None and radialLine_y <> None:
-        theta = numpy.arctan2( radialLine_y - center_y, radialLine_x - center_x )
+        theta = math.atan2( radialLine_y - center_y, radialLine_x - center_x )
         A = numpy.array([ center_x + radius*numpy.cos(theta) , center_y + radius*numpy.sin(theta) ])
         B = numpy.array([ center_x - radius*numpy.cos(theta) , center_y - radius*numpy.sin(theta) ])
         XML_body.append( svgLine(radialLine_x, radialLine_y, center_x, center_y, lineColor, strokeWidth) )

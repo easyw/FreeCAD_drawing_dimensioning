@@ -1,4 +1,7 @@
 import numpy
+import math
+from math import atan2
+
 import FreeCAD as App
 import FreeCAD, FreeCADGui, Part, os
 from PySide import QtGui, QtCore, QtSvg

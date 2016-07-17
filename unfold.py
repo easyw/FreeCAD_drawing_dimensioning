@@ -6,6 +6,8 @@ import dimensionSvgConstructor
 import numpy
 from numpy import pi, sin, cos, arctan2, arcsin, arccos, dot
 from numpy.linalg import norm
+import math
+from math import atan2
 dotProduct = numpy.dot
 crossProduct = numpy.cross
 

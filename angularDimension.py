@@ -40,8 +40,8 @@ def angularDimensionSVG( line1, line2, x_baseline, y_baseline, x_text=None, y_te
     d2 = directionVector(p_center, p_arrow2)
 
     largeArc = False # given the selection method for the arrow heads (points and line1 and line2 used for measuring the angle)
-    angle_1 = arctan2( d2[1], d2[0] )
-    angle_2 = arctan2( d1[1], d1[0] )
+    angle_1 = atan2( d2[1], d2[0] )
+    angle_2 = atan2( d1[1], d1[0] )
     if abs(angle_1 - angle_2) < pi: #modulo correction required, since arctan2 return [-pi, pi]
         if angle_2 < angle_1:
             angle_2 = angle_2 + 2*pi
@@ -63,7 +63,7 @@ def angularDimensionSVG( line1, line2, x_baseline, y_baseline, x_text=None, y_te
 
     if x_text <> None and y_text <> None:
         v = arccos( numpy.dot(d1, d2) )/ pi * 180
-        textRotation = numpy.arctan2( y_text - y_int, x_text - x_int)
+        textRotation = math.atan2( y_text - y_int, x_text - x_int)
         textXML = textRenderer( x_text, y_text, dimensionText(v,textFormat_angular, comma=comma_decimal_place), textRotation)
         XML.append( textXML )
     return '<g> %s </g>' % '\n'.join(XML)

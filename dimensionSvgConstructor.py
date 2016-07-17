@@ -6,6 +6,8 @@ library containing commonly used SVGs construction functions
 
 import numpy
 from numpy import dot, pi, arctan2, sin, cos, arccos
+import math
+from math import atan2
 from numpy.linalg import norm
 from svgLib_dd import SvgTextRenderer
 
